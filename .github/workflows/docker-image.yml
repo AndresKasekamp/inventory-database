@@ -34,4 +34,4 @@ jobs:
                 DB_USER=${{ secrets.DB_USER }}
                 DB_PASS=${{ secrets.DB_PASS }}
           push: ${{ github.event_name != 'pull_request' }}
-          tags: andreskasekamp/inventory-database:latest
+          tags: andreskasekamp/inventory-database:latest, andreskasekamp/inventory-database:0.0.1

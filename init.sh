@@ -4,13 +4,9 @@ set -e
 export DB_USER
 export DB_PASS
 
-# Ensure required environment variables are set
-if [[ -z "$POSTGRES_USER" || -z "$POSTGRES_DB" || -z "$DB_USER" || -z "$DB_PASS" ]]; then
-    echo "Error: Required environment variables are not set."
-    exit 1
-fi
+/etc/init.d/postgresql start
 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+psql <<-EOSQL
     CREATE DATABASE movies;
     CREATE USER $DB_USER WITH ENCRYPTED PASSWORD '$DB_PASS';
     GRANT ALL PRIVILEGES ON DATABASE movies TO $DB_USER;
@@ -23,3 +19,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
     GRANT ALL PRIVILEGES ON TABLE movies TO $DB_USER;
     GRANT ALL ON SEQUENCE movies_id_seq TO $DB_USER;
 EOSQL
+
+/etc/init.d/postgresql stop
+
+exec /usr/lib/postgresql/16/bin/postgres -D /var/lib/postgresql/16/main -c config_file=/etc/postgresql/16/main/postgresql.conf

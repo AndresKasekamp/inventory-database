@@ -26,5 +26,8 @@ jobs:
       - name: Docker build
         uses: docker/build-push-action@v6
         with:
+          # build-args: |
+          #   DB_USER=${{ secrets.DB_USER }}
+          #   DB_PASS=${{ secrets.DB_PASS }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: andreskasekamp/inventory-database:latest, andreskasekamp/inventory-database:0.0.3

@@ -6,7 +6,7 @@ export DB_PASS
 
 /etc/init.d/postgresql start
 
-psql <<-EOSQL
+psql -v ON_ERROR_STOP=1 --username "postgres" <<-EOSQL
     CREATE DATABASE movies;
     CREATE USER $DB_USER WITH ENCRYPTED PASSWORD '$DB_PASS';
     GRANT ALL PRIVILEGES ON DATABASE movies TO $DB_USER;

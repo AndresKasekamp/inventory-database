@@ -6,7 +6,7 @@ export DB_PASS
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
     CREATE DATABASE movies;
-    \ c movies
+    \c movies
     CREATE USER $DB_USER WITH ENCRYPTED PASSWORD '$DB_PASS';
     GRANT ALL PRIVILEGES ON DATABASE movies TO $DB_USER;
     GRANT ALL PRIVILEGES ON SCHEMA public TO $DB_USER;

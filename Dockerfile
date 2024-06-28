@@ -4,6 +4,13 @@ FROM debian:stable
 ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /app
+
+# Copy the initialization script into the container
+COPY ./init.sh /
+
+# Grant execute permissions on the script
+RUN chmod +x /init.sh
+
 # Update package list and install prerequisites
 RUN apt-get update && apt-get install -y \
     wget \
@@ -22,14 +29,6 @@ USER postgres
 
 RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/16/main/pg_hba.conf
 RUN echo "listen_addresses='*'" >> /etc/postgresql/16/main/postgresql.conf
-
-# CMD ["/usr/lib/postgresql/16/bin/postgres", "-D", "/var/lib/postgresql/16/main", "-c", "config_file=/etc/postgresql/16/main/postgresql.conf"]
-
-# Copy the initialization script into the container
-COPY ./init.sh /
-
-# Grant execute permissions on the script
-RUN chmod +x /init.sh
 
 # Expose the PostgreSQL port
 EXPOSE 5432

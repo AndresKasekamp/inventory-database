@@ -26,15 +26,15 @@ RUN echo "listen_addresses='*'" >> /etc/postgresql/16/main/postgresql.conf
 # CMD ["/usr/lib/postgresql/16/bin/postgres", "-D", "/var/lib/postgresql/16/main", "-c", "config_file=/etc/postgresql/16/main/postgresql.conf"]
 
 # Copy the initialization script into the container
-COPY ./init.sh /docker-entrypoint-initdb.d/
+COPY ./init.sh /
 
 # Grant execute permissions on the script
-RUN chmod +x /docker-entrypoint-initdb.d/init.sh
+RUN chmod +x /init.sh
 
 # Expose the PostgreSQL port
 EXPOSE 5432
 
-ENTRYPOINT [ "/docker-entrypoint-initdb.d/init.sh" ]
+ENTRYPOINT [ "/init.sh" ]
 
 # Use CMD to run the PostgreSQL server
 CMD ["/usr/lib/postgresql/16/bin/postgres", "-D", "/var/lib/postgresql/16/main", "-c", "config_file=/etc/postgresql/16/main/postgresql.conf"]

@@ -18,3 +18,5 @@ CREATE TABLE movies (
     title VARCHAR(100) NOT NULL,
     description VARCHAR(255)
 );
+
+GRANT ALL PRIVILEGES ON TABLE movies TO username;

@@ -12,6 +12,9 @@ CREATE USER username WITH ENCRYPTED PASSWORD 'password';
 -- Grant all privileges on the database to the new user
 GRANT ALL PRIVILEGES ON DATABASE movies TO username;
 
+-- Grant privileges on the public schema to the new user
+GRANT ALL PRIVILEGES ON SCHEMA public TO username;
+
 -- Create a new table
 CREATE TABLE movies (
     id SERIAL PRIMARY KEY,
